@@ -139,6 +139,8 @@ var makeDRS = function(pane, handle, options){
 	var handles = handle instanceof Array ?  handle : [handle]
 	var onHTMLhandle 		// Holds result of event listeners for HTML handles
 
+	var preBounds = null;
+
 	function createHandleObjects() {
 		b = b || pane.getBoundingClientRect();
 
@@ -537,7 +539,8 @@ var makeDRS = function(pane, handle, options){
 	var clicks = [0, 0, 0]
 
 	// pane.addEventListener('click', trippleClick)
-	handle.addEventListener('click', trippleClick)
+	// handle.addEventListener('click', trippleClick)
+	handle.addEventListener('dblclick', maximizeDbclickHandler)
 
 	function trippleClick(e) {
 		clicks[2] = clicks[0] && clicks[1] && !clicks[2] ? e.timeStamp : clicks[2]
@@ -560,7 +563,23 @@ var makeDRS = function(pane, handle, options){
 		var w = window
 		var pw = w.innerWidth * .75
 		var ph = w.innerHeight * .75
+
 		setBounds(pane, (w.innerWidth / 2) - (pw / 2), (w.innerHeight / 2) - (ph / 2), pw, ph);
+	}
+
+	function maximizeDbclickHandler() {
+		var w = window
+		var pw = w.innerWidth
+		var ph = w.innerHeight
+
+		if(!preBounds) {
+			preBounds = pane.getBoundingClientRect();
+			setBounds(pane, (w.innerWidth / 2) - (pw / 2), (w.innerHeight / 2) - (ph / 2), pw, ph);
+		} else {
+			setBounds(pane, preBounds.left, preBounds.top, preBounds.width, preBounds.height);
+			preBounds = null;
+		}
+		
 	}
 
 	// utility functions
