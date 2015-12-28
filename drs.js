@@ -534,7 +534,8 @@ var makeDRS = function(pane, handle, options){
 	// Tripple click to center (comes in handy!)
 	var clicks = [0, 0, 0]
 
-	pane.addEventListener('click', trippleClick)
+	// pane.addEventListener('click', trippleClick)
+	handle.addEventListener('click', trippleClick)
 
 	function trippleClick(e) {
 		clicks[2] = clicks[0] && clicks[1] && !clicks[2] ? e.timeStamp : clicks[2]
