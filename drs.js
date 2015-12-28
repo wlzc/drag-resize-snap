@@ -105,8 +105,10 @@ var makeDRS = function(pane, handle, options){
     options = options || {}
 
 	// Minimum resizable area
-	var minWidth 			= 60;
-	var minHeight			= 40;
+	// var minWidth 			= 60;
+	// var minHeight			= 40;
+	var minWidth 			= options.minWidth || 60;
+	var minHeight			= options.minHeight || 40;
 
 	// Thresholds
 	var SNAP_MARGINS 		= -(options.snapEdge || 5);
