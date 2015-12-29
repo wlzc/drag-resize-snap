@@ -308,15 +308,19 @@ var makeDRS = function(pane, handle, options){
 			var yb = b.height - y
 			var xr = b.width - x
 
+			if (y > c.height) {
+				return false;
+			}
+
 			// determine bounds of click area coordinates
 			if (c.bottom !== null && c.bottom !== undefined)
-				r.bottom = yb < c.height || (!c.height && y > c.top) && yb > c.bottom && inLR
+				r.bottom = (yb > 0 && yb < c.height) || (!c.height && y > c.top) && yb > c.bottom && inLR
 			if (c.top !== null && c.top !== undefined)
-				r.top = y < c.height || (!c.height && yb > c.bottom) && y > c.top && inLR
+				r.top = (y > 0 && y < c.height) || (!c.height && yb > c.bottom) && y > c.top && inLR
 			if (c.right !== null && c.right !== undefined)
-				r.right = xr < c.width || (!c.width && x > c.left ) && xr > c.right && inTB
+				r.right = (xr > 0 && xr < c.width) || (!c.width && x > c.left ) && xr > c.right && inTB
 			if (c.left !== null && c.left !== undefined)
-				r.left = x < c.width || (!c.width && xr > c.right ) && x > c.left && inTB
+				r.left = (x > 0 && x < c.width) || (!c.width && xr > c.right ) && x > c.left && inTB
 
 			var result = ( (r.bottom || r.top  ) && r.left && r.right ) ||
 				( (r.left || r.right) && r.bottom && r.top   )
