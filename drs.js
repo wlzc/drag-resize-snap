@@ -472,7 +472,8 @@ var makeDRS = function(pane, handle, options){
 			}
 
 			// moving
-			pane.style.top = (e.clientY - clicked.y) + 'px';
+			var top = (e.clientY - clicked.y);
+			pane.style.top = (top >= 0 ? (top <= window.innerHeight - 30 ? top : window.innerHeight - 30) : 0) + 'px';
 			pane.style.left = (e.clientX - clicked.x) + 'px';
 
 			return;
